@@ -57,6 +57,7 @@ def convert_from_path(
     use_pdftocairo=False,
     timeout=None,
     hide_annotations=False,
+    mono=False
 ):
     """
         Description: Convert PDF to Image will throw whenever one of the condition is reached
@@ -179,6 +180,7 @@ def convert_from_path(
                 grayscale,
                 size,
                 hide_annotations,
+                mono
             )
 
             if use_pdfcairo:
@@ -254,6 +256,7 @@ def convert_from_bytes(
     use_pdftocairo=False,
     timeout=None,
     hide_annotations=False,
+    mono=False
 ):
     """
         Description: Convert PDF to Image will throw whenever one of the condition is reached
@@ -309,6 +312,7 @@ def convert_from_bytes(
                 use_pdftocairo=use_pdftocairo,
                 timeout=timeout,
                 hide_annotations=hide_annotations,
+                mono=mono
             )
     finally:
         os.close(fh)
@@ -331,6 +335,7 @@ def _build_command(
     grayscale,
     size,
     hide_annotations,
+    mono,
 ):
     if use_cropbox:
         args.append("-cropbox")
@@ -367,6 +372,11 @@ def _build_command(
 
     if grayscale:
         args.append("-gray")
+
+    if mono:
+        args.append("-mono")
+
+
 
     if size is None:
         pass
